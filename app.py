@@ -13,7 +13,7 @@ def get_env():
 @app.route('/env')
 def list_env_vars():
     env_vars = os.environ
-    return '<br>'.join([f'{key}: {value}' for key, value in env_vars.items()])
+    return '\n'.join([f'{key}: {value}' for key, value in env_vars.items()])
 
 @app.route('/env-file')
 def list_properties_file():
@@ -21,7 +21,8 @@ def list_properties_file():
     try:
         with open(properties_file_path, 'r') as file:
             content = file.read()
-        return content.replace('\n', '<br>')
+        # return content.replace('\n', '<br>')
+        return content
     except FileNotFoundError:
         return "Properties file not found."
     except Exception as e:
