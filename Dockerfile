@@ -14,7 +14,7 @@ ENV API_URL_GEOCODING https://geocoding-api.open-meteo.com/v1
 ENV API_URL_WEATHER https://api.open-meteo.com/v1
 ENV ENVIRONMENT uat
 
-CMD ["gunicorn", "-b", "0.0.0.0:8000", "app:app"]
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "app:app"]
 
 # docker build -t brainupgrade/configmap:2 .
 # docker run -p 8000:8000 brainupgrade/configmap:2
