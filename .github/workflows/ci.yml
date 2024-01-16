@@ -43,11 +43,10 @@ jobs:
     # Test the deployment
     - name: Test
       run: |
-        kubectl run test --image brainupgrade/tshoot
         kubectl wait --for=condition=Ready pod -l app=weather-py --timeout=300s
         kubectl get pods -owide
         kubectl get endpoints weather-py-service -o=jsonpath='{.subsets[*].addresses[*].ip}'
-        for x in {1..1};do kubectl exec test -- curl -s weather-py-service/place/Bangalore;done
+        kubectl get nodes -owide
         # Add commands to test the application
         # For instance, using curl to check if the app responds correctly
         NODE_PORT=$(kubectl get svc weather-py-service -o=jsonpath='{.spec.ports[0].nodePort}')
