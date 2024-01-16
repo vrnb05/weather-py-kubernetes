@@ -44,8 +44,8 @@ jobs:
     - name: Test
       run: |
         kubectl run test --image brainupgrade/tshoot
-        sleep 30s
-        kubectl describe svc weather-py-service
+        sleep 15s
+        # kubectl describe svc weather-py-service
         kubectl exec test -- curl -s weather-py-service/place/Bangalore
         # Add commands to test the application
         # For instance, using curl to check if the app responds correctly
