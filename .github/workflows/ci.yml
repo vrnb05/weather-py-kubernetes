@@ -44,15 +44,8 @@ jobs:
     - name: Test
       run: |
         kubectl wait --for=condition=Ready pod -l app=weather-py --timeout=300s
-        kubectl get pods -owide
-        kubectl get endpoints weather-py-service -o=jsonpath='{.subsets[*].addresses[*].ip}'
-        kubectl logs -l app=weather-py
-        kubectl get nodes -owide
         # Add commands to test the application
         # For instance, using curl to check if the app responds correctly
         NODE_PORT=$(kubectl get svc weather-py-service -o=jsonpath='{.spec.ports[0].nodePort}')
         NODE_IP=$(kubectl get nodes -o=jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
         for i in {1..2}; do curl $NODE_IP:$NODE_PORT/place/Bangalore && break || sleep 15; done
-        # kubectl describe svc weather-py-service
-
-
