@@ -49,7 +49,7 @@ jobs:
         NODE_PORT=$(kubectl get svc weather-py-service -o=jsonpath='{.spec.ports[0].nodePort}')
         NODE_IP=$(kubectl get nodes -o=jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
         for i in {1..5}; do curl $NODE_IP:$NODE_PORT/place/Bangalore && break || sleep 15; done
-        kubectl describe svc weather-py-service
+        # kubectl describe svc weather-py-service
         kubectl exec test -- curl -s weather-py-service/place/Bangalore
 
 
