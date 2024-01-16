@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: weather-py
-        image: brainupgrade/weather-py:latest
+        image: brainupgrade/weather-py:2
         ports:
         - containerPort: 8080
 ---
