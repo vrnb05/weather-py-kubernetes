@@ -2,13 +2,13 @@
 # Example of a `CODEOWNERS` file
 
 # These people are the default owners for everything in the repo.
-*       @default-owner
+*       @brainupgrade-in
 
 # Order is important. The last matching pattern takes the most precedence.
 # This means @doc-owner will be requested for review when changes are
 # made to any files under docs/
-/docs/  @doc-owner
+/docs/  @kohlideepti
 
 # You can also specify email addresses if they are associated with a GitHub account.
-/src/   @dev-team rajeshgheware@gmail.com
+/src/   @ghewarer
 
