@@ -47,6 +47,8 @@ Contributions to Weather-Py are welcome! Please refer to the project's issues an
 
 This project is licensed under the [MIT License](LICENSE).
 
+
+
 ## Contact
 
 For any queries, please open an issue on the [GitHub repository](https://github.com/brainupgrade-in/weather-py).
