@@ -1,4 +1,4 @@
-name: CI-CD Workflow
+name: CI-CD Workflow - Docker build, push, deploy to KIND, and test
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-deploy:
+  build-deploy-test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -33,7 +33,7 @@ jobs:
 
     # Set up Kubernetes in Docker (KIND)
     - name: Create KIND Cluster
-      uses: helm/kind-action@v1.2.0
+      uses: helm/kind-action@v1
 
     # Deploy to KIND Cluster
     - name: Deploy to KIND
