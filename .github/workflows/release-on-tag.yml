@@ -1,0 +1,46 @@
+name: Release on Tag
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetches all history for all tags and branches
+
+      - name: Get previous tag
+        id: previoustag
+        run: echo ::set-output name=tag::$(git describe --tags --abbrev=0 $(git rev-list --tags --skip=1 --max-count=1))
+
+      - name: Generate release notes
+        id: release_notes
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const previousTag = '${{ steps.previoustag.outputs.tag }}'
+            const currentTag = '${{ github.ref_name }}'
+            const compare = await github.rest.repos.compareCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              base: previousTag,
+              head: currentTag,
+            })
+            return compare.data.commits.map(commit => commit.commit.message).join('\n')
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          body: ${{ steps.release_notes.outputs.result }}
+          draft: false
+          prerelease: false
